@@ -1,0 +1,495 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+
+body{
+  background:#020617;
+  height:100vh;
+  overflow:hidden;
+}
+
+
+/* MOBILE APP FRAME */
+
+.chat-container{
+
+  width:100%;
+  max-width:430px;
+
+  height:100vh;
+
+  margin:auto;
+
+  padding:12px;
+
+  display:flex;
+  flex-direction:column;
+
+  background:
+  linear-gradient(
+  135deg,
+  #020617,
+  #1e1b4b,
+  #0f172a
+  );
+
+}
+
+
+
+/* TOP ICON AREA */
+
+.chat-container h1{
+
+  color:white;
+  text-align:center;
+
+  font-size:32px;
+
+  margin:10px 0;
+
+}
+
+
+
+/* CHAT BOX */
+
+.chat-box{
+
+  flex:1;
+
+  width:100%;
+
+  padding:12px;
+
+  overflow-y:auto;
+
+
+  display:flex;
+  flex-direction:column;
+
+
+  background:
+  rgba(255,255,255,0.08);
+
+
+  backdrop-filter:blur(15px);
+
+
+  border-radius:25px;
+
+
+}
+
+
+
+/* USER RIGHT */
+
+.user-chat{
+
+  align-self:flex-end;
+
+  max-width:80%;
+
+  margin:8px 0;
+
+  padding:12px 16px;
+
+
+  background:
+  linear-gradient(
+  135deg,
+  #2563eb,
+  #06b6d4
+  );
+
+
+  color:white;
+
+
+  border-radius:
+  20px 20px 5px 20px;
+
+
+}
+
+
+
+/* AI LEFT */
+
+.ai-chat{
+
+  align-self:flex-start;
+
+  max-width:80%;
+
+
+  margin:8px 0;
+
+
+  padding:12px 16px;
+
+
+  background:white;
+
+
+  color:#111827;
+
+
+  border-radius:
+  20px 20px 20px 5px;
+
+white-space: pre-line;
+
+}
+
+
+
+/* INPUT */
+
+.chat-input{
+
+  display:flex;
+
+  gap:8px;
+
+  margin-top:10px;
+
+}
+
+
+
+.chat-input input{
+
+  flex:1;
+
+  padding:14px;
+
+  border:none;
+
+  outline:none;
+
+  border-radius:30px;
+
+  background:#1e293b;
+
+  color:white;
+
+}
+
+
+
+.chat-input button{
+
+  width:80px;
+
+  border:none;
+
+  border-radius:30px;
+
+  background:#22c55e;
+
+  color:white;
+
+  font-weight:bold;
+
+}
+
+
+
+/* MOBILE */
+
+@media(max-width:430px){
+
+.chat-container{
+
+ padding:10px;
+
+}
+
+
+.user-chat,
+.ai-chat{
+
+ font-size:14px;
+
+ max-width:85%;
+
+}
+
+
+}
+
+
+
+
+
+
+
+.ai-logo{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin:10px 0;
+}
+
+
+.ai-knot{
+
+  width:60px;
+  height:60px;
+
+  border-radius:18px;
+
+  background:#111827;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  position:relative;
+
+  box-shadow:
+  0 0 15px #22d3ee,
+  0 0 30px rgba(34,211,238,.4);
+
+}
+
+
+/* AI LOOP STYLE */
+
+.ai-knot span{
+
+  position:absolute;
+
+  width:28px;
+  height:28px;
+
+  border:3px solid #5eead4;
+
+  border-radius:50%;
+
+}
+
+
+.ai-knot span:nth-child(1){
+
+  transform:translate(-8px,-6px);
+
+}
+
+
+.ai-knot span:nth-child(2){
+
+  transform:translate(8px,6px);
+
+  border-color:#38bdf8;
+
+}
+
+
+.ai-knot span:nth-child(3){
+
+  width:18px;
+  height:18px;
+
+  border-color:#a78bfa;
+
+}
+
+
+.ai-knot::after{
+
+  content:"";
+
+  width:8px;
+  height:8px;
+
+  background:#fff;
+
+  border-radius:50%;
+
+  box-shadow:
+  0 0 10px white;
+
+}
+
+
+
+
+
+
+
+
+.ai-header{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:12px;
+
+margin:10px 0 15px;
+
+}
+
+
+.ai-header h2{
+
+color:white;
+
+font-size:28px;
+
+margin:0;
+
+}
+
+
+.ai-icon{
+
+width:55px;
+
+height:55px;
+
+border-radius:18px;
+
+background:#111827;
+
+position:relative;
+
+box-shadow:
+0 0 20px #22d3ee;
+
+}
+
+
+/* icon design */
+
+.ai-icon:before{
+
+content:"";
+
+position:absolute;
+
+width:28px;
+
+height:28px;
+
+border:3px solid #5eead4;
+
+border-radius:50%;
+
+top:12px;
+
+left:12px;
+
+}
+
+
+.ai-icon:after{
+
+content:"";
+
+position:absolute;
+
+width:10px;
+
+height:10px;
+
+background:#38bdf8;
+
+border-radius:50%;
+
+top:23px;
+
+left:23px;
+}
+
+
+
+
+
+
+
+
+
+.welcome-chat{
+
+  align-self:center;
+
+  text-align:center;
+
+  color:white;
+
+  font-size:18px;
+
+  padding:20px 30px;
+
+  margin:20px;
+
+  background:rgba(255,255,255,0.08);
+
+  border-radius:20px;
+
+  border:1px solid #38bdf8;
+
+  box-shadow:
+  0 0 20px rgba(56,189,248,.5);
+
+  white-space:pre-line;
+
+
+  animation:welcomeShow 1s ease;
+
+}
+
+
+.welcome-chat::after{
+
+  content:"";
+
+  display:block;
+
+  width:100%;
+
+  height:2px;
+
+  margin-top:15px;
+
+  background:#38bdf8;
+
+  box-shadow:0 0 15px #38bdf8;
+
+}
+
+
+
+@keyframes welcomeShow{
+
+from{
+
+ opacity:0;
+
+ transform:translateY(30px) scale(.8);
+
+}
+
+
+to{
+
+ opacity:1;
+
+ transform:translateY(0) scale(1);
+
+}
+
+}

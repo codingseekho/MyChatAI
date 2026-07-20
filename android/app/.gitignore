@@ -1,0 +1,8 @@
+/build/*
+!/build/.npmkeep
+
+.env
+backend/.env
+node_modules
+dist
+build
