@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://mychatai-qwgv.onrender.com"
+  baseURL: "https://mychatai-3.onrender.com"
 });
 
 export default API;
