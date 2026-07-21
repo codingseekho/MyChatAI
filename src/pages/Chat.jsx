@@ -72,7 +72,7 @@ function Chat() {
     try{
 
 
-      const response = await API.post("/chat",{
+      const response = await API.post("/api/chat", {
 
 
         message,
