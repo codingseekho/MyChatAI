@@ -23,7 +23,9 @@ jobs:
         run: node ./node_modules/vite/bin/vite.js build
 
       - name: Sync Capacitor
-        run: npx cap sync android
+        run: |
+          chmod +x ./node_modules/.bin/cap || true
+          node ./node_modules/@capacitor/cli/bin/cap.js sync android
 
       - name: Setup Java
         uses: actions/setup-java@v4
