@@ -7,10 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: frontend
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -19,6 +15,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Install Dependencies
         run: npm install
@@ -27,7 +24,9 @@ jobs:
         run: npm run build
 
       - name: Sync Capacitor
-        run: npx cap sync android
+        run: |
+          chmod +x node_modules/.bin/cap
+          ./node_modules/.bin/cap sync android
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -39,7 +38,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Build APK
-        working-directory: frontend/android
+        working-directory: android
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
@@ -48,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MyChatAI-APK
-          path: frontend/android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
