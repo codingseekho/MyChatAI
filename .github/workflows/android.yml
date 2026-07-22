@@ -20,7 +20,7 @@ jobs:
         run: npm install
 
       - name: Build React App
-  run: node ./node_modules/vite/bin/vite.js build
+        run: node ./node_modules/vite/bin/vite.js build
 
       - name: Sync Capacitor
         run: npx cap sync android
