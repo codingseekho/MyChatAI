@@ -20,13 +20,17 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Fix Permissions
+        run: |
+          chmod -R +x node_modules/.bin || true
+
       - name: Build React App
-        run: npm run build
+        run: |
+          node ./node_modules/vite/bin/vite.js build
 
       - name: Sync Capacitor
         run: |
-          chmod +x node_modules/.bin/cap
-          ./node_modules/.bin/cap sync android
+          node ./node_modules/@capacitor/cli/bin/cap.js sync android
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -37,11 +41,12 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Grant Gradle Permission
+        run: chmod +x android/gradlew
+
       - name: Build APK
         working-directory: android
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+        run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
