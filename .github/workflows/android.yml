@@ -19,10 +19,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-    
-- name: Build React App
-  run: npx --yes vite build
-
+      - name: Build React App
+        run: npx --yes vite build
 
       - name: Sync Capacitor
         run: npx cap sync android
