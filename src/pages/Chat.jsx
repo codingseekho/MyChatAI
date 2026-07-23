@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import API from "../services/api";
+import API, { wakeServer } from "../services/api";
 
 
 function Chat() {
@@ -39,7 +39,9 @@ function Chat() {
   },[]);
 
 
-
+useEffect(() => {
+  wakeServer();
+}, []);
 
   const sendMessage = async () => {
 
@@ -112,27 +114,15 @@ function Chat() {
 
     }
 
-    catch(error){
-
-
-
-      setChats((prev)=>[
-
-        ...prev,
-
-        {
-
-          role:"ai",
-
-          text:"AI response error"
-
-        }
-
-      ]);
-
-
-
+    catch (error) {
+  setChats((prev) => [
+    ...prev,
+    {
+      role: "ai",
+      text: "Server is starting... Please wait 20–30 seconds and send again."
     }
+  ]);
+}
 
 
 
