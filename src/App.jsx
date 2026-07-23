@@ -1,42 +1,53 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+const sendMessage = async () => {
 
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Chat from "./pages/Chat";
+  if (!message) return;
 
-import "./App.css";
+  const userMessage = {
+    role: "user",
+    text: message
+  };
 
-function App() {
+  setChats((prev) => [...prev, userMessage]);
 
-  const isLoggedIn = localStorage.getItem("login") === "true";
+  const requestBody = {
+    message,
+    history: chats
+  };
 
-  return (
-    <BrowserRouter>
-      <Routes>
+  let success = false;
 
-        <Route
-          path="/"
-          element={isLoggedIn ? <Navigate to="/chat" /> : <Login />}
-        />
+  for (let i = 0; i < 3; i++) {
+    try {
 
-        <Route
-          path="/login"
-          element={isLoggedIn ? <Navigate to="/chat" /> : <Login />}
-        />
+      const response = await API.post("/api/chat", requestBody);
 
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+      const aiMessage = {
+        role: "ai",
+        text: response.data.reply
+      };
 
-        <Route
-          path="/chat"
-          element={isLoggedIn ? <Chat /> : <Navigate to="/login" />}
-        />
+      setChats((prev) => [...prev, aiMessage]);
 
-      </Routes>
-    </BrowserRouter>
-  );
-}
+      success = true;
+      break;
 
-export default App;
+    } catch (err) {
+
+      // 10 second wait, then retry
+      await new Promise(resolve => setTimeout(resolve, 10000));
+
+    }
+  }
+
+  if (!success) {
+    setChats((prev) => [
+      ...prev,
+      {
+        role: "ai",
+        text: "Server is waking up. Please try again after a few seconds."
+      }
+    ]);
+  }
+
+  setMessage("");
+};
