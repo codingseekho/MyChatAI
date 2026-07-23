@@ -48,4 +48,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MyChatAI-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apkto isme apk h o replace karo aab likho
+          path: android/app/build/outputs/apk/debug/app-debug.apk
