@@ -12,7 +12,6 @@ function App() {
 
   return (
     <BrowserRouter>
-
       <Routes>
 
         <Route
@@ -25,7 +24,10 @@ function App() {
           element={isLoggedIn ? <Navigate to="/chat" /> : <Login />}
         />
 
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
         <Route
           path="/chat"
@@ -33,7 +35,6 @@ function App() {
         />
 
       </Routes>
-
     </BrowserRouter>
   );
 }
