@@ -12,17 +12,17 @@ function App() {
 
         <Route
           path="/"
-          element={isLoggedIn ? <Navigate to="/chat" /> : <Login />}
+          element={isLoggedIn ? <Navigate to="/chat" replace /> : <Login />}
         />
 
         <Route
           path="/login"
-          element={isLoggedIn ? <Navigate to="/chat" /> : <Login />}
+          element={isLoggedIn ? <Navigate to="/chat" replace /> : <Login />}
         />
 
         <Route
           path="/chat"
-          element={isLoggedIn ? <Chat /> : <Navigate to="/login" />}
+          element={isLoggedIn ? <Chat /> : <Navigate to="/login" replace />}
         />
 
         <Route path="/register" element={<Register />} />
