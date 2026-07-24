@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Preferences } from "@capacitor/preferences";
 import "../css/Login.css";
+
 
 function Login() {
 
@@ -10,32 +10,33 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = (e) => {
+  e.preventDefault();
 
-    if (email === "" || password === "") {
-      alert("Please fill all fields");
-      return;
-    }
+  if (email === "" || password === "") {
+    alert("Please fill all fields");
+    return;
+  }
 
-    await Preferences.set({
-      key: "login",
-      value: "true",
-    });
+  localStorage.setItem("login", "true");
 
-    alert("Login Successful");
+  alert("Login Successful");
 
-    navigate("/chat");
-  };
+  navigate("/chat");
+};
 
   return (
     <div className="login-container">
       <div className="login-card">
 
         <div className="ai-header">
-          <div className="ai-icon"></div>
-          <h1>Chat AI</h1>
-        </div>
+
+  <div className="ai-icon">
+  </div>
+
+  <h1>Chat AI</h1>
+
+</div>
 
         <h2>Welcome Back</h2>
 
@@ -60,31 +61,28 @@ function Login() {
           />
 
           <button type="submit">
-            Login
-          </button>
+  Login
+</button>
 
-          <br />
-          <br />
-          <br />
 
-          <button
-            type="button"
-            onClick={async () => {
+<br />
+<br />
+<br />
 
-              await Preferences.remove({
-                key: "login",
-              });
 
-              setEmail("");
-              setPassword("");
+<button
+  type="button"
+  onClick={()=>{
+    localStorage.removeItem("login");
 
-              alert("Logout Successful");
+    setEmail("");
+    setPassword("");
 
-              navigate("/login");
-            }}
-          >
-            Logout
-          </button>
+    alert("Logout Successful");
+  }}
+>
+  Logout
+</button>
 
         </form>
 

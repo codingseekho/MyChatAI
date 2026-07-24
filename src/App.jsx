@@ -1,52 +1,28 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Preferences } from "@capacitor/preferences";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Chat from "./pages/Chat";
 
+import "./App.css";
+
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
-
-  useEffect(() => {
-    const checkLogin = async () => {
-      const { value } = await Preferences.get({
-        key: "login",
-      });
-
-      setIsLoggedIn(value === "true");
-    };
-
-    checkLogin();
-  }, []);
-
-  if (isLoggedIn === null) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <BrowserRouter>
+
       <Routes>
 
-        <Route
-          path="/"
-          element={isLoggedIn ? <Navigate to="/chat" replace /> : <Login />}
-        />
+        <Route path="/" element={<Login />} />
 
-        <Route
-          path="/login"
-          element={isLoggedIn ? <Navigate to="/chat" replace /> : <Login />}
-        />
-
-        <Route
-          path="/chat"
-          element={isLoggedIn ? <Chat /> : <Navigate to="/login" replace />}
-        />
+        <Route path="/login" element={<Login />} />
 
         <Route path="/register" element={<Register />} />
 
+        <Route path="/chat" element={<Chat />} />
+
       </Routes>
+
     </BrowserRouter>
   );
 }
