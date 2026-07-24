@@ -1,321 +1,102 @@
 import React, { useState, useEffect } from "react";
 import API from "../services/api";
 
-
 function Chat() {
-
-
   const [message, setMessage] = useState("");
-
   const [chats, setChats] = useState([]);
 
-
-
-  // Welcome message after opening page
-
-  useEffect(()=>{
-
-
-    const timer = setTimeout(()=>{
-
-
+  useEffect(() => {
+    const timer = setTimeout(() => {
       setChats([
-
         {
-          role:"welcome",
-          text:"Hello 👋\nHow can I help you today?"
-        }
-
+          role: "welcome",
+          text: "Hello 👋\nHow can I help you today?",
+        },
       ]);
+    }, 1500);
 
-
-    },1500);
-
-
-
-    return ()=>clearTimeout(timer);
-
-
-  },[]);
-
-
-
+    return () => clearTimeout(timer);
+  }, []);
 
   const sendMessage = async () => {
-
-
-    if(!message) return;
-
-
+    if (!message.trim()) return;
 
     const userMessage = {
-
-      role:"user",
-
-      text:message
-
+      role: "user",
+      text: message,
     };
 
+    const newChats = [...chats, userMessage];
+    setChats(newChats);
 
-
-    setChats((prev)=>[
-
-      ...prev,
-
-      userMessage
-
-    ]);
-
-
-
-
-    try{
-
-
-      const response = await API.post("/api/chat", {
-
-
+    try {
+      const response = await API.post("/chat", {
         message,
-
-        history:chats
-
-
+        history: newChats,
       });
 
-
-
-
-
       const aiMessage = {
-
-
-        role:"ai",
-
-        text:response.data.reply
-
-
+        role: "ai",
+        text: response.data.reply || "No response",
       };
 
+      setChats([...newChats, aiMessage]);
+    } catch (error) {
+      console.error(error);
 
-
-
-      setChats((prev)=>[
-
-        ...prev,
-
-        aiMessage
-
-      ]);
-
-
-
-
-    }
-
-    catch(error){
-
-
-
-      setChats((prev)=>[
-
-        ...prev,
-
+      setChats([
+        ...newChats,
         {
-
-          role:"ai",
-
-          text:"AI response error"
-
-        }
-
+          role: "ai",
+          text: "AI response error",
+        },
       ]);
-
-
-
     }
-
-
-
 
     setMessage("");
-
-
-
   };
 
-
-
-
-
-
   return (
-
-
     <div className="chat-container">
-
-
-
-
-
-      {/* HEADER */}
-
-
       <div className="ai-header">
-
-
-        <div className="ai-icon">
-
-        </div>
-
-
-        <h2>
-
-          Chat AI
-
-        </h2>
-
-
+        <div className="ai-icon"></div>
+        <h2>Chat AI</h2>
       </div>
-
-
-
-
-
-
-
-
-
-      {/* CHAT AREA */}
-
 
       <div className="chat-box">
-
-
-
-        {
-
-        chats.map((chat,index)=>(
-
-
-
+        {chats.map((chat, index) => (
           <div
-
-          key={index}
-
-
-          className={
-
-            chat.role==="user"
-
-            ?
-
-            "user-chat"
-
-
-            :
-
-
-            chat.role==="welcome"
-
-            ?
-
-            "welcome-chat"
-
-
-            :
-
-
-            "ai-chat"
-
-          }
-
-
-
+            key={index}
+            className={
+              chat.role === "user"
+                ? "user-chat"
+                : chat.role === "welcome"
+                ? "welcome-chat"
+                : "ai-chat"
+            }
           >
-
-
             {chat.text}
-
-
-
           </div>
-
-
-
-        ))
-
-        }
-
-
-
-
+        ))}
       </div>
-
-
-
-
-
-
-
-      {/* INPUT */}
-
 
       <div className="chat-input">
-
-
-
-
-
         <input
-
-
-        type="text"
-
-
-        placeholder="Ask anything..."
-
-
-        value={message}
-
-
-        onChange={(e)=>setMessage(e.target.value)}
-
-
-
+          type="text"
+          placeholder="Ask anything..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              sendMessage();
+            }
+          }}
         />
 
-
-
-
-
-
-        <button onClick={sendMessage}>
-
-
-          Send
-
-
-        </button>
-
-
-
-
-
+        <button onClick={sendMessage}>Send</button>
       </div>
-
-
-
-
-
-
     </div>
-
-
   );
-
-
 }
-
-
 
 export default Chat;
